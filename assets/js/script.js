@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
         numRand = Math.floor(Math.random() * 2) + 1
         if (numRand == 1) {
             addHeads()
-
         } else {
             addTails()
         }
@@ -55,15 +54,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updatePercents() {
         calcTotalFlips()
-        document.querySelector('#tails-percent').textContent = calcPerAndTruncateString(tailsTotal)
+        document.querySelector('#tails-percent').textContent = calcPerAndRoundString(tailsTotal)
         document.querySelector('#tails').textContent = tailsTotal
-        document.querySelector('#heads-percent').textContent = calcPerAndTruncateString(headsTotal)
+        document.querySelector('#heads-percent').textContent = calcPerAndRoundString(headsTotal)
         document.querySelector('#heads').textContent = headsTotal
     }
 
-    function calcPerAndTruncateString(num) {
+    function calcPerAndRoundString(num) {
         let numFloat = (num/totalFlips) * 100
-        let numString = Math.trunc(numFloat).toString() + "%"
+        let numString = Math.round(numFloat).toString() + "%"
         return numString
     }
 
