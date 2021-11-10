@@ -1,4 +1,8 @@
 // TODO: Declare any global variables we need
+let headsTotal = 0
+let tailsTotal = 0
+let totalFlips = 0
+let coinImg = document.querySelector('#coin')
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -7,21 +11,63 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Hi')
 
     // TODO: Add event listener and handler for flip and clear buttons
+    document.querySelector('#flip').addEventListener('click', function() {
 
-    // Flip Button Click Handler
-        // TODO: Determine flip outcome
-        // TODO: Update image and status message in the DOM
+        numRand = Math.floor(Math.random() * 2) + 1
+        if (numRand == 1) {
+            addHeads()
 
-        // Update the scorboard
-        // TODO: Calculate the total number of rolls/flips
-        // Make variables to track the percentages of heads and tails
-        // TODO: Use the calculated total to calculate the percentages
-        // HINT: Make sure not to divide by 0! (if total is 0, percent will be 0 as well)
-        // TODO: Update the display of each table cell
+        } else {
+            addTails()
+        }
+        updatePercents()
+    })
+
+    document.querySelector('#clear').addEventListener('click', function () {
+        //Reset everything
+        headsTotal = 0
+        tailsTotal = 0
+        totalFlips = 0
+
+        let tableSlots = document.querySelectorAll('td')
+        for (let i = 0; i < tableSlots.length; i++) {
+            if (tableSlots[i].getAttribute('id').includes("-percent")) {
+                tableSlots[i].textContent = "0%"
+            } else {
+                tableSlots[i].textContent = "0"
+            }
+        }
+    })
 
 
-    // Clear Button Click Handler
-        // TODO: Reset global variables to 0
-        // TODO: Update the scoreboard (same logic as in flip button click handler)
 
+    function addHeads() {
+        coinImg.setAttribute('src', 'assets/images/penny-heads.jpg')
+        document.querySelector('#result').textContent = "You got heads!"
+        headsTotal++
+    }
+
+    function addTails() {
+        coinImg.setAttribute('src', 'assets/images/penny-tails.jpg')
+        document.querySelector('#result').textContent = "You got tails!"
+        tailsTotal++
+    }
+
+    function updatePercents() {
+        calcTotalFlips()
+        document.querySelector('#tails-percent').textContent = calcPerAndTruncateString(tailsTotal)
+        document.querySelector('#tails').textContent = tailsTotal
+        document.querySelector('#heads-percent').textContent = calcPerAndTruncateString(headsTotal)
+        document.querySelector('#heads').textContent = headsTotal
+    }
+
+    function calcPerAndTruncateString(num) {
+        let numFloat = (num/totalFlips) * 100
+        let numString = Math.trunc(numFloat).toString() + "%"
+        return numString
+    }
+
+    function calcTotalFlips() {
+        totalFlips = headsTotal + tailsTotal
+    }
 })

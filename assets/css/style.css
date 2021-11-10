@@ -10,6 +10,13 @@ body {
     background: linear-gradient(to bottom left, orange, white);
 }
 
+img {
+    min-height: 350px;
+    min-width: 350px;
+    max-height: 350px;
+    max-width: 350px;
+}
+
 main {
     background-color: white;
     margin: 20px;
